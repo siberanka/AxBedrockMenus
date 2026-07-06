@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 - 2026-07-06
+
+- Added plugin-specific quick action catalogs for all 16 bundled ArtillexStudios integrations.
+- Added internal Bedrock player selector flow for target-player commands such as AxTrade request, accept, and deny.
+- Added support for reading target plugin command aliases from Artillex config paths like `command-aliases`, `player-command-aliases`, and `main-command-aliases`.
+- Quick action commands now prefer the server's configured plugin alias when available.
+- Expanded Bedrock forms so players can reach common plugin workflows without typing subcommands wherever safe.
+
 ## 1.0.1 - 2026-07-06
 
 - Added provider-based menu generation.

@@ -4,7 +4,17 @@ integrations:
     plugin: AxGraves
     title: AxGraves
     aliases: [axgraves, graves, grave]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, data.json, menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "My graves"
+        command: "%base% list"
+        permission: "axgraves.list"
+        description: "List your active graves."
+      - text: "Help"
+        command: "%base% help"
+        permission: "axgraves.help"
+        description: "Show AxGraves player help."
     fallback-buttons:
       - text: "%menu.back%"
         command: "axgraves"
@@ -13,7 +23,25 @@ integrations:
     plugin: AxTrade
     title: AxTrade
     aliases: [axtrade, trade, trades]
+    alias-paths: [command-aliases]
     menu-files: [guis.yml, config.yml, currencies.yml, toggled.yml, menus.yml, menu.yml, gui.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Send trade request"
+        command: "abm:select-player:%base% %target%"
+        permission: "axtrade.trade"
+        description: "Choose an online player from a Bedrock form."
+      - text: "Accept trade request"
+        command: "abm:select-player:%base% accept %target%"
+        permission: "axtrade.trade"
+        description: "Accept a selected player's pending request."
+      - text: "Deny trade request"
+        command: "abm:select-player:%base% deny %target%"
+        permission: "axtrade.trade"
+        description: "Deny a selected player's pending request."
+      - text: "Toggle trade requests"
+        command: "%base% toggle"
+        permission: "axtrade.toggle"
+        description: "Enable or disable incoming trade requests."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "trade"
@@ -22,7 +50,33 @@ integrations:
     plugin: AxVaults
     title: AxVaults
     aliases: [axvaults, vaults, vault, pv, playervaults]
+    alias-paths: [player-command-aliases]
     menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, vaults.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Vault selector"
+        command: "%base%"
+        permission: "axvaults.selector"
+        description: "Open the AxVaults selector."
+      - text: "Vault 1"
+        command: "%base% 1"
+        permission: "axvaults.openremote"
+        description: "Open vault #1 directly."
+      - text: "Vault 2"
+        command: "%base% 2"
+        permission: "axvaults.openremote"
+        description: "Open vault #2 directly."
+      - text: "Vault 3"
+        command: "%base% 3"
+        permission: "axvaults.openremote"
+        description: "Open vault #3 directly."
+      - text: "Vault 4"
+        command: "%base% 4"
+        permission: "axvaults.openremote"
+        description: "Open vault #4 directly."
+      - text: "Vault 5"
+        command: "%base% 5"
+        permission: "axvaults.openremote"
+        description: "Open vault #5 directly."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "vaults"
@@ -31,7 +85,13 @@ integrations:
     plugin: AxShulkers
     title: AxShulkers
     aliases: [axshulkers, shulker, shulkers]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "AxShulkers"
+        command: "%base%"
+        permission: "axshulkers.use"
+        description: "Open the owner plugin command safely."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "shulkers"
@@ -40,7 +100,13 @@ integrations:
     plugin: AxAFKZone
     title: AxAFKZone
     aliases: [axafkzone, afkzone, afkzones, afk]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, zones/*.yml, menus.yml, menu.yml, gui.yml, guis.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "AFK zone help"
+        command: "%base% help"
+        permission: "axafkzone.help"
+        description: "Show available AFK zone commands."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "afkzone"
@@ -49,7 +115,13 @@ integrations:
     plugin: AxInventoryRestore
     title: AxInventoryRestore
     aliases: [axinventoryrestore, inventoryrestore, invrestore, axir]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, backups.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Open restore menu"
+        command: "%base%"
+        permission: "axinventoryrestore.view"
+        description: "Open the owner plugin restore browser."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "inventoryrestore"
@@ -58,7 +130,21 @@ integrations:
     plugin: AxPlayerWarps
     title: AxPlayerWarps
     aliases: [axplayerwarps, playerwarps, pwarps, pw, warps]
+    alias-paths: [main-command-aliases, command-aliases]
     menu-files: [guis/warps.yml, guis/my-warps.yml, guis/categories.yml, guis/favorites.yml, guis/recents.yml, guis/edit-warp.yml, guis/rate-warp.yml, guis/blacklist.yml, guis/whitelist.yml, config.yml, currencies.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Browse player warps"
+        command: "%base% open"
+        permission: "axplayerwarps.open"
+        description: "Open the player warp browser."
+      - text: "Open my warp menu"
+        command: "%base% open"
+        permission: "axplayerwarps.open"
+        description: "Open your PlayerWarps menu."
+      - text: "Warp help"
+        command: "%base% help"
+        permission: "axplayerwarps.open"
+        description: "Show available PlayerWarps commands."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "playerwarps"
@@ -67,7 +153,12 @@ integrations:
     plugin: AxSellwands
     title: AxSellwands
     aliases: [axsellwands, sellwands, sellwand]
+    alias-paths: [command-aliases]
     menu-files: [sellwands/*.yml, prices.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, wands.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Sellwands"
+        command: "%base%"
+        description: "Open the owner plugin command safely."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "sellwands"
@@ -76,7 +167,13 @@ integrations:
     plugin: AxRankMenu
     title: AxRankMenu
     aliases: [axrankmenu, rankmenu, ranks, rankup, rank]
+    alias-paths: [command-aliases]
     menu-files: [ranks.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, rankmenu.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Open rank menu"
+        command: "%base%"
+        permission: "axrankmenu.use"
+        description: "Open the owner plugin GUI if purchase interaction is needed."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "rankmenu"
@@ -85,7 +182,17 @@ integrations:
     plugin: AxRewards
     title: AxRewards
     aliases: [axrewards, rewards, reward, daily, weekly]
+    alias-paths: [command-aliases]
     menu-files: [menus/default.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Rewards"
+        command: "%base% open"
+        permission: "axrewards.help"
+        description: "Open the rewards menu through AxRewards."
+      - text: "Daily rewards"
+        command: "reward"
+        permission: "axrewards.open.default"
+        description: "Open the default reward command if configured."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "rewards"
@@ -94,7 +201,12 @@ integrations:
     plugin: AxMinions
     title: AxMinions
     aliases: [axminions, minions, minion]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, minions.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Minions"
+        command: "%base%"
+        description: "Open the owner plugin command safely."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "minions"
@@ -103,7 +215,12 @@ integrations:
     plugin: AxEnvoys
     title: AxEnvoys
     aliases: [axenvoys, envoys, envoy]
+    alias-paths: [command-aliases]
     menu-files: [envoys/*.yml, crates/*.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, crates.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Envoys"
+        command: "%base%"
+        description: "Open the owner plugin command safely."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "envoys"
@@ -112,7 +229,12 @@ integrations:
     plugin: AxSmithing
     title: AxSmithing
     aliases: [axsmithing, smithing]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, smithing.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Smithing"
+        command: "%base%"
+        description: "Open the smithing menu."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "smithing"
@@ -121,7 +243,12 @@ integrations:
     plugin: AxMines
     title: AxMines
     aliases: [axmines, mines, mine]
+    alias-paths: [command-aliases]
     menu-files: [mines/*.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, mines.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Mines"
+        command: "%base%"
+        description: "Open the mine menu."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "mines"
@@ -130,7 +257,12 @@ integrations:
     plugin: AxKills
     title: AxKills
     aliases: [axkills, kills, deathmessages, killmessages]
+    alias-paths: [command-aliases]
     menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, messages.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Kill messages"
+        command: "%base%"
+        description: "Open AxKills."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "kills"
@@ -139,7 +271,15 @@ integrations:
     plugin: AxCalendar
     title: AxCalendar
     aliases: [axcalendar, calendar, adventcalendar, advent]
+    alias-paths: [command-aliases]
     menu-files: [menu.yml, rewards.yml, config.yml, menus.yml, gui.yml, guis.yml, calendar.yml, days.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    quick-actions:
+      - text: "Calendar"
+        command: "%base% open"
+        description: "Open the calendar."
+      - text: "Calendar help"
+        command: "%base% help"
+        description: "Show calendar help."
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "calendar"

@@ -7,6 +7,7 @@ AxBedrockMenus is designed as a form bridge, not as an item container. It never 
 - Floodgate-only interception for Bedrock players.
 - Permission and plugin-enabled checks before every menu open.
 - Per-player rate limits for menu opens and button clicks.
+- Internal selector forms only use server-provided online player names and generated command templates; user-controlled raw command payloads are not accepted.
 - One-shot form callbacks with stale-session invalidation.
 - Folia-safe player-context scheduling before Bukkit/command interaction.
 - Bounded YAML scanning with maximum file size, node count, depth, and button count.

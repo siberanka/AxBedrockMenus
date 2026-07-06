@@ -13,5 +13,7 @@ menu:
   rate-limited: "&cCok hizli islem yapiyorsun. Lutfen tekrar dene."
   unsafe-command: "&cBu islem guvenlik nedeniyle engellendi."
   info-only: "&eBu buton bilgilendirme amaclidir."
+  no-targets: "&cSecilebilecek uygun oyuncu yok."
+  select-player-title: "Oyuncu sec"
   open-default: "Menuyu ac"
   back: "Geri"

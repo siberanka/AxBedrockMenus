@@ -32,25 +32,59 @@ public final class IntegrationRegistry {
             }
             List<MenuButton> fallback = new ArrayList<>();
             for (Map<?, ?> map : section.getMapList("fallback-buttons")) {
-                Object text = map.get("text");
-                Object command = map.get("command");
-                if (text != null && command != null) {
-                    fallback.add(new MenuButton(String.valueOf(text), List.of(String.valueOf(command)), null));
-                }
+                readButton(map).ifPresent(fallback::add);
+            }
+            List<MenuButton> quickActions = new ArrayList<>();
+            for (Map<?, ?> map : section.getMapList("quick-actions")) {
+                readButton(map).ifPresent(quickActions::add);
             }
             Integration integration = new Integration(
                     id.toLowerCase(Locale.ROOT),
                     section.getString("plugin", id),
                     section.getString("title", id),
                     lower(section.getStringList("aliases")),
+                    section.getStringList("alias-paths"),
                     section.getStringList("menu-files"),
+                    List.copyOf(quickActions),
                     List.copyOf(fallback)
             );
             integrations.add(integration);
-            for (String alias : integration.aliases()) {
+            for (String alias : aliasesFor(integration)) {
                 byAlias.put(alias, integration);
             }
         }
+    }
+
+    private Optional<MenuButton> readButton(Map<?, ?> map) {
+        Object text = map.get("text");
+        Object command = map.get("command");
+        if (text == null || command == null) {
+            return Optional.empty();
+        }
+        List<String> commands;
+        if (command instanceof List<?> list) {
+            commands = new ArrayList<>();
+            for (Object value : list) {
+                if (value != null && !String.valueOf(value).isBlank()) {
+                    commands.add(String.valueOf(value));
+                }
+            }
+        } else {
+            commands = List.of(String.valueOf(command));
+        }
+        List<String> description = new ArrayList<>();
+        Object rawDescription = map.get("description");
+        if (rawDescription instanceof List<?> list) {
+            for (Object value : list) {
+                if (value != null && !String.valueOf(value).isBlank()) {
+                    description.add(String.valueOf(value));
+                }
+            }
+        } else if (rawDescription != null && !String.valueOf(rawDescription).isBlank()) {
+            description.add(String.valueOf(rawDescription));
+        }
+        Object permission = map.get("permission");
+        return Optional.of(new MenuButton(String.valueOf(text), List.copyOf(commands), permission == null ? null : String.valueOf(permission), List.copyOf(description)));
     }
 
     public Optional<Integration> findByCommand(String commandLine) {
@@ -87,5 +121,22 @@ public final class IntegrationRegistry {
             lowered.add(value.toLowerCase(Locale.ROOT));
         }
         return List.copyOf(lowered);
+    }
+
+    private List<String> aliasesFor(Integration integration) {
+        List<String> aliases = new ArrayList<>(integration.aliases());
+        var target = Bukkit.getPluginManager().getPlugin(integration.pluginName());
+        if (target == null || !target.isEnabled()) {
+            return aliases;
+        }
+        var configFile = new java.io.File(target.getDataFolder(), "config.yml");
+        if (!configFile.isFile()) {
+            return aliases;
+        }
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+        for (String path : integration.aliasPaths()) {
+            aliases.addAll(lower(config.getStringList(path)));
+        }
+        return aliases.stream().distinct().toList();
     }
 }

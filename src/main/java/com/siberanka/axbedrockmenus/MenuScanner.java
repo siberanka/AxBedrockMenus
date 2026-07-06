@@ -44,6 +44,14 @@ public final class MenuScanner {
     public Optional<MenuData> loadGenericMenu(Integration integration, Player player) {
         List<MenuButton> buttons = cachedButtons(integration);
         List<MenuButton> visible = new ArrayList<>();
+        for (MenuButton button : integration.quickActions()) {
+            if (button.permission() == null || button.permission().isBlank() || player.hasPermission(button.permission())) {
+                visible.add(new MenuButton(withSummary(button.text(), button.description()), expandBase(integration, button.commands()), button.permission(), button.description()));
+            }
+            if (visible.size() >= config.maxButtonsPerForm()) {
+                break;
+            }
+        }
         for (MenuButton button : buttons) {
             if (button.permission() == null || button.permission().isBlank() || player.hasPermission(button.permission())) {
                 visible.add(button);
@@ -64,6 +72,32 @@ public final class MenuScanner {
             return Optional.empty();
         }
         return Optional.of(new MenuData(language.translateToken(integration.title()), genericContent(integration), List.copyOf(visible)));
+    }
+
+    public List<String> expandBase(Integration integration, List<String> commands) {
+        List<String> result = new ArrayList<>(commands.size());
+        String base = primaryAlias(integration);
+        for (String command : commands) {
+            result.add(command.replace("%base%", base));
+        }
+        return List.copyOf(result);
+    }
+
+    private String primaryAlias(Integration integration) {
+        Plugin target = Bukkit.getPluginManager().getPlugin(integration.pluginName());
+        if (target != null && target.isEnabled()) {
+            File configFile = new File(target.getDataFolder(), "config.yml");
+            if (configFile.isFile()) {
+                YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+                for (String path : integration.aliasPaths()) {
+                    List<String> aliases = config.getStringList(path);
+                    if (!aliases.isEmpty() && aliases.get(0) != null && !aliases.get(0).isBlank()) {
+                        return aliases.get(0);
+                    }
+                }
+            }
+        }
+        return integration.aliases().isEmpty() ? integration.pluginName().toLowerCase(Locale.ROOT) : integration.aliases().get(0);
     }
 
     private List<MenuButton> cachedButtons(Integration integration) {

@@ -13,5 +13,7 @@ menu:
   rate-limited: "&cYou are doing that too quickly. Please try again."
   unsafe-command: "&cThis action was blocked for security."
   info-only: "&eThis button is informational."
+  no-targets: "&cThere are no eligible players to select."
+  select-player-title: "Select player"
   open-default: "Open menu"
   back: "Back"

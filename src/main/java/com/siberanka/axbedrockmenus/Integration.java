@@ -7,7 +7,9 @@ public record Integration(
         String pluginName,
         String title,
         List<String> aliases,
+        List<String> aliasPaths,
         List<String> menuFiles,
+        List<MenuButton> quickActions,
         List<MenuButton> fallbackButtons
 ) {
 }
