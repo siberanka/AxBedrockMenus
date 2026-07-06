@@ -63,8 +63,7 @@ public final class AxRankMenuProvider implements MenuProvider {
         if (buttons.isEmpty()) {
             return scanner.loadGenericMenu(integration, player);
         }
-        String content = "Ranks are listed directly from AxRankMenu ranks.yml. Purchase actions are not executed by AxBedrockMenus unless a safe owner-plugin API is available.";
-        return Optional.of(new MenuData(title, content, List.copyOf(buttons)));
+        return Optional.of(new MenuData(title, "", List.copyOf(buttons)));
     }
 
     private record RankEntry(int slot, String key, ConfigurationSection section) {
