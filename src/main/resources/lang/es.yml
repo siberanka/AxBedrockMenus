@@ -1,0 +1,16 @@
+commands:
+  usage: "&cUso: /axbedrockmenus <reload|status>"
+  reloaded: "&aAxBedrockMenus recargado."
+  no-permission: "&cNo tienes permiso para hacer eso."
+  status:
+    header: "&bAxBedrockMenus &7estado"
+    floodgate: "&7Floodgate: &f%value%"
+    integrations: "&7Integraciones activas: &f%value%"
+    forms: "&7Sesiones de formulario activas: &f%value%"
+menu:
+  no-buttons: "&cNo se encontraron botones compatibles con Bedrock para este menu."
+  plugin-disabled: "&cEste menu no esta disponible ahora."
+  rate-limited: "&cEstas haciendo eso demasiado rapido. Intentalo de nuevo."
+  unsafe-command: "&cEsta accion fue bloqueada por seguridad."
+  open-default: "Abrir menu"
+  back: "Atras"

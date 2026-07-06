@@ -1,0 +1,16 @@
+commands:
+  usage: "&cIstifade: /axbedrockmenus <reload|status>"
+  reloaded: "&aAxBedrockMenus yeniden yuklendi."
+  no-permission: "&cBunu etmek ucun icazen yoxdur."
+  status:
+    header: "&bAxBedrockMenus &7status"
+    floodgate: "&7Floodgate: &f%value%"
+    integrations: "&7Aktiv inteqrasiya: &f%value%"
+    forms: "&7Aktiv form sessiyasi: &f%value%"
+menu:
+  no-buttons: "&cBu menu ucun Bedrock uygun duymeler tapilmadi."
+  plugin-disabled: "&cBu menu hazirda movcud deyil."
+  rate-limited: "&cCox suretli emeliyyat edirsən. Zehmet olmasa yeniden yoxla."
+  unsafe-command: "&cBu emeliyyat tehlukesizlik sebebi ile bloklandi."
+  open-default: "Menunu ac"
+  back: "Geri"

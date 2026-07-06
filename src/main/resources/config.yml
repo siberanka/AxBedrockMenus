@@ -1,0 +1,51 @@
+settings:
+  language: tr
+  debug: false
+  require-permission: true
+  intercept-bedrock-only: true
+  close-stale-forms-on-reload: true
+  cache-ttl-millis: 5000
+  max-buttons-per-form: 80
+  max-menu-file-bytes: 524288
+  max-yaml-depth: 8
+  max-yaml-nodes: 2000
+
+rate-limits:
+  menu-open:
+    window-millis: 1200
+    max-actions: 2
+  button-click:
+    window-millis: 1000
+    max-actions: 1
+
+command-security:
+  max-command-length: 180
+  allow-console-actions: false
+  blocked-roots:
+    - op
+    - deop
+    - stop
+    - restart
+    - reload
+    - plugman
+    - lp
+    - luckperms
+    - pex
+    - permissions
+    - sudo
+    - execute
+    - minecraft:op
+    - minecraft:deop
+    - minecraft:stop
+    - minecraft:reload
+  blocked-substrings:
+    - "${"
+    - "%javascript"
+    - "jndi:"
+    - "ldap://"
+    - "rmi://"
+    - "\n"
+    - "\r"
+
+messages:
+  prefix: "&8[&bAxBedrockMenus&8]&r "

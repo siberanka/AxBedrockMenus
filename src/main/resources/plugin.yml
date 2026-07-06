@@ -1,0 +1,38 @@
+name: AxBedrockMenus
+version: ${version}
+main: com.siberanka.axbedrockmenus.AxBedrockMenusPlugin
+api-version: "1.20"
+folia-supported: true
+author: siberanka
+description: Bedrock/Floodgate form menus for ArtillexStudios plugins.
+softdepend:
+  - floodgate
+  - Geyser-Spigot
+  - AxGraves
+  - AxTrade
+  - AxVaults
+  - AxShulkers
+  - AxAFKZone
+  - AxInventoryRestore
+  - AxPlayerWarps
+  - AxSellwands
+  - AxRankMenu
+  - AxRewards
+  - AxMinions
+  - AxEnvoys
+  - AxSmithing
+  - AxMines
+  - AxKills
+  - AxCalendar
+commands:
+  axbedrockmenus:
+    description: AxBedrockMenus administration command.
+    aliases: [abm, bedrockmenus]
+    permission: axbedrockmenus.admin
+permissions:
+  axbedrockmenus.admin:
+    description: Allows reloading and status checks.
+    default: op
+  axbedrockmenus.use:
+    description: Allows Bedrock form menu interception.
+    default: true
