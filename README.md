@@ -35,6 +35,16 @@ The jar is generated in `build/libs/`.
 /axbedrockmenus status
 ```
 
+## Reporting Issues
+
+Use GitHub Issues for reproducible bugs, compatibility reports, and feature requests:
+
+https://github.com/siberanka/AxBedrockMenus/issues
+
+Do not report dupes, exploit payloads, bypasses, or private crash vectors publicly. Use the security policy instead:
+
+https://github.com/siberanka/AxBedrockMenus/security/policy
+
 ## Security Notes
 
 AxBedrockMenus does not move items or create server-side inventories. It uses Bedrock forms and delegates real actions back to the owning plugin through validated commands. Command payloads are length-limited, newline-blocked, root-filtered, rate-limited, and executed only after the player context is checked again.

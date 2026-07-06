@@ -1,0 +1,108 @@
+name: Bug report
+description: Report a reproducible AxBedrockMenus problem.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. For security-sensitive reports, do not continue here; use the security policy link instead.
+  - type: input
+    id: plugin-version
+    attributes:
+      label: AxBedrockMenus version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: server-version
+    attributes:
+      label: Server platform and version
+      placeholder: "Paper 1.21.8 build ..., Folia ..., Purpur ..."
+    validations:
+      required: true
+  - type: input
+    id: geyser-floodgate
+    attributes:
+      label: Geyser/Floodgate versions
+      placeholder: "Geyser build ..., Floodgate build ..."
+    validations:
+      required: true
+  - type: dropdown
+    id: artillex-plugin
+    attributes:
+      label: Target ArtillexStudios plugin
+      multiple: false
+      options:
+        - AxGraves
+        - AxTrade
+        - AxVaults
+        - AxShulkers
+        - AxAFKZone
+        - AxInventoryRestore
+        - AxPlayerWarps
+        - AxSellwands
+        - AxRankMenu
+        - AxRewards
+        - AxMinions
+        - AxEnvoys
+        - AxSmithing
+        - AxMines
+        - AxKills
+        - AxCalendar
+        - Other / unsure
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: List the exact steps needed to reproduce the issue.
+      placeholder: |
+        1. Join with a Bedrock/Floodgate account
+        2. Run /...
+        3. Click ...
+        4. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and errors
+      description: Paste relevant console errors or startup logs. Remove private tokens, IPs, and credentials.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant config
+      description: Paste only relevant config/integrations/lang entries. Remove secrets.
+      render: yaml
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I tested with the latest AxBedrockMenus release.
+          required: true
+        - label: I confirmed this happens with a Bedrock/Floodgate player.
+          required: true
+        - label: This is not a private security exploit report.
+          required: true

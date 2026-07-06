@@ -1,0 +1,55 @@
+name: Compatibility report
+description: Report a menu, command, Folia, Geyser, Floodgate, or Artillex integration compatibility problem.
+title: "[Compatibility]: "
+labels: ["compatibility", "needs-triage"]
+body:
+  - type: input
+    id: plugin-version
+    attributes:
+      label: AxBedrockMenus version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Server platform
+      placeholder: "Folia/Paper/Purpur + exact version"
+    validations:
+      required: true
+  - type: input
+    id: bedrock-stack
+    attributes:
+      label: Bedrock stack
+      placeholder: "Geyser build ..., Floodgate build ..., proxy/backend setup if any"
+    validations:
+      required: true
+  - type: input
+    id: artillex-version
+    attributes:
+      label: Artillex plugin and version
+      placeholder: "AxTrade x.y.z"
+    validations:
+      required: true
+  - type: textarea
+    id: menu-source
+    attributes:
+      label: Menu/config source
+      description: Paste the relevant menu YAML section that should become a Bedrock form.
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What is incompatible?
+      placeholder: "Missing buttons, wrong commands, filler button appears, form does not open, Folia scheduling warning, etc."
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      render: text
+    validations:
+      required: false

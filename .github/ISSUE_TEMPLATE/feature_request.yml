@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest a safe improvement or new integration behavior.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow or compatibility gap should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior you want.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Existing ArtillexStudios integration
+        - New menu parsing rule
+        - Language/config improvement
+        - Security/performance improvement
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional, but useful for config-heavy requests.
+    validations:
+      required: false
