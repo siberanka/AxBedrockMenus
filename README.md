@@ -4,7 +4,7 @@ AxBedrockMenus adds Floodgate/Geyser Bedrock form support for free ArtillexStudi
 
 Package: `com.siberanka.axbedrockmenus`  
 Author: `siberanka`  
-Version: `1.0.0`
+Version: `1.0.1`
 
 ## Supported ArtillexStudios Plugins
 
@@ -15,9 +15,11 @@ AxGraves, AxTrade, AxVaults, AxShulkers, AxAFKZone, AxInventoryRestore, AxPlayer
 ## How It Works
 
 - Bedrock players detected through Floodgate are intercepted before known Artillex menu commands open Java inventory GUIs.
-- The plugin scans the target plugin's data folder for configured YAML menu files and extracts real actionable buttons.
+- Provider-specific menu adapters are used where safe. For example, AxRankMenu reads `ranks.yml` and displays ranks, prices, currencies, and server scope directly in the Bedrock form.
+- The generic Artillex scanner reads the target plugin's data folder for configured YAML menu/resource files and extracts safe navigation buttons plus informational entries.
 - Filler panes and decorative empty entries are ignored.
-- Button clicks execute sanitized player commands on the player's Folia entity scheduler.
+- Button clicks execute sanitized player commands on the player's Folia entity scheduler only when the action can be delegated safely.
+- Reward `claim-commands` and rank `buy-actions` are never executed directly by AxBedrockMenus; those must stay behind the owning plugin's own economy, cooldown, permission, and state checks.
 - Stale form responses are invalidated on reload/disable and duplicate responses are consumed once.
 
 ## Build

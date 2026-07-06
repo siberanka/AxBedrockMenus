@@ -12,5 +12,6 @@ menu:
   plugin-disabled: "&cThis menu is not available right now."
   rate-limited: "&cYou are doing that too quickly. Please try again."
   unsafe-command: "&cThis action was blocked for security."
+  info-only: "&eThis button is informational."
   open-default: "Open menu"
   back: "Back"

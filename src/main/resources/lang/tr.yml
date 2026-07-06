@@ -12,5 +12,6 @@ menu:
   plugin-disabled: "&cBu menu su anda kullanilamiyor."
   rate-limited: "&cCok hizli islem yapiyorsun. Lutfen tekrar dene."
   unsafe-command: "&cBu islem guvenlik nedeniyle engellendi."
+  info-only: "&eBu buton bilgilendirme amaclidir."
   open-default: "Menuyu ac"
   back: "Geri"

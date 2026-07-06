@@ -16,6 +16,7 @@ public final class AxBedrockMenusPlugin extends JavaPlugin {
     private FoliaExecutor foliaExecutor;
     private SafeCommandService safeCommandService;
     private MenuScanner menuScanner;
+    private ProviderRegistry providerRegistry;
     private FormService formService;
 
     @Override
@@ -53,7 +54,8 @@ public final class AxBedrockMenusPlugin extends JavaPlugin {
         this.foliaExecutor = new FoliaExecutor(this);
         this.safeCommandService = new SafeCommandService(this, pluginConfig, languageService, foliaExecutor);
         this.menuScanner = new MenuScanner(this, pluginConfig, languageService);
-        this.formService = new FormService(this, pluginConfig, languageService, integrationRegistry, floodgateBridge, safeCommandService, menuScanner);
+        this.providerRegistry = new ProviderRegistry(languageService);
+        this.formService = new FormService(this, pluginConfig, languageService, integrationRegistry, floodgateBridge, safeCommandService, menuScanner, providerRegistry);
         if (reload) {
             getLogger().info("Configuration reloaded.");
         }

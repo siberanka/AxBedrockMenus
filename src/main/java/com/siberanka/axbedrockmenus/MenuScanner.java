@@ -41,7 +41,7 @@ public final class MenuScanner {
         this.language = language;
     }
 
-    public Optional<MenuData> loadMenu(Integration integration, Player player) {
+    public Optional<MenuData> loadGenericMenu(Integration integration, Player player) {
         List<MenuButton> buttons = cachedButtons(integration);
         List<MenuButton> visible = new ArrayList<>();
         for (MenuButton button : buttons) {
@@ -63,7 +63,7 @@ public final class MenuScanner {
         if (visible.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(new MenuData(language.translateToken(integration.title()), List.copyOf(visible)));
+        return Optional.of(new MenuData(language.translateToken(integration.title()), genericContent(integration), List.copyOf(visible)));
     }
 
     private List<MenuButton> cachedButtons(Integration integration) {
@@ -91,7 +91,7 @@ public final class MenuScanner {
             }
             YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
             Counter counter = new Counter();
-            scanSection(yaml, file.getName(), 0, counter, buttons, seen);
+            scanSection(integration, yaml, file.getName(), 0, counter, buttons, seen);
             if (buttons.size() >= config.maxButtonsPerForm()) {
                 break;
             }
@@ -141,6 +141,47 @@ public final class MenuScanner {
         return files;
     }
 
+    public boolean safeMenuFile(Integration integration, File file) {
+        Plugin target = Bukkit.getPluginManager().getPlugin(integration.pluginName());
+        return target != null && safeFile(target.getDataFolder(), file);
+    }
+
+    public File pluginDataFile(Integration integration, String relativePath) {
+        Plugin target = Bukkit.getPluginManager().getPlugin(integration.pluginName());
+        if (target == null || !target.isEnabled()) {
+            return null;
+        }
+        return new File(target.getDataFolder(), relativePath.replace("/", File.separator));
+    }
+
+    public int maxButtons() {
+        return config.maxButtonsPerForm();
+    }
+
+    public Optional<String> displayName(ConfigurationSection section, String... paths) {
+        return firstString(section, paths).map(language::stripColor).map(value -> limit(value, 64));
+    }
+
+    public String withSummary(String label, List<String> summary) {
+        String cleaned = limit(language.stripColor(label), 64);
+        if (summary == null || summary.isEmpty()) {
+            return cleaned;
+        }
+        StringBuilder builder = new StringBuilder(cleaned);
+        int lines = 0;
+        for (String line : summary) {
+            if (line == null || line.isBlank()) {
+                continue;
+            }
+            builder.append("\n").append(limit(language.stripColor(line), 72));
+            lines++;
+            if (lines >= 3) {
+                break;
+            }
+        }
+        return builder.toString();
+    }
+
     private boolean safeFile(File dataFolder, File file) {
         try {
             String base = dataFolder.getCanonicalPath();
@@ -158,11 +199,11 @@ public final class MenuScanner {
         }
     }
 
-    private void scanSection(ConfigurationSection section, String path, int depth, Counter counter, List<MenuButton> buttons, Set<String> seen) {
+    private void scanSection(Integration integration, ConfigurationSection section, String path, int depth, Counter counter, List<MenuButton> buttons, Set<String> seen) {
         if (depth > config.maxYamlDepth() || counter.increment() > config.maxYamlNodes() || buttons.size() >= config.maxButtonsPerForm()) {
             return;
         }
-        createButton(section, path).ifPresent(button -> {
+        createButton(integration, section, path, depth).ifPresent(button -> {
             String key = button.text().toLowerCase(Locale.ROOT) + "|" + button.commands();
             if (seen.add(key)) {
                 buttons.add(button);
@@ -171,24 +212,46 @@ public final class MenuScanner {
         for (String key : section.getKeys(false)) {
             Object value = section.get(key);
             if (value instanceof ConfigurationSection child) {
-                scanSection(child, path + "." + key, depth + 1, counter, buttons, seen);
+                scanSection(integration, child, path + "." + key, depth + 1, counter, buttons, seen);
             }
         }
     }
 
-    private Optional<MenuButton> createButton(ConfigurationSection section, String path) {
-        List<String> commands = readCommands(section);
-        if (commands.isEmpty()) {
+    private Optional<MenuButton> createButton(Integration integration, ConfigurationSection section, String path, int depth) {
+        List<String> commands = readCommands(integration, section);
+        if (commands.isEmpty() && (depth == 0 || !looksLikeConceptItem(section))) {
             return Optional.empty();
         }
         if (isFiller(section)) {
             return Optional.empty();
         }
-        String text = firstString(section, "name", "display-name", "title", "text", "item.name", "icon.name", "display.name")
+        String text = firstString(section, "name", "display-name", "title", "text", "item.name", "icon.name", "display.name", "claimable.name", "unclaimable.name", "no-permission.name")
                 .orElseGet(() -> readablePath(path));
-        text = limit(language.stripColor(text), 64);
+        List<String> summary = description(section);
+        text = withSummary(text, summary);
         String permission = firstString(section, "permission", "view-permission", "requirements.permission").orElse(null);
-        return Optional.of(new MenuButton(text, commands, permission));
+        return Optional.of(new MenuButton(text, commands, permission, summary));
+    }
+
+    private boolean looksLikeConceptItem(ConfigurationSection section) {
+        return section.contains("rank")
+                || section.contains("price")
+                || section.contains("currency")
+                || section.contains("claimable")
+                || section.contains("unclaimable")
+                || section.contains("no-permission")
+                || section.contains("claim-items")
+                || section.contains("claim-commands")
+                || section.contains("buy-actions")
+                || section.contains("rewards")
+                || section.contains("reward")
+                || section.contains("warp")
+                || section.contains("category")
+                || section.contains("mine")
+                || section.contains("envoy")
+                || section.contains("crate")
+                || section.contains("sellwand")
+                || section.contains("zone");
     }
 
     private boolean isFiller(ConfigurationSection section) {
@@ -200,28 +263,12 @@ public final class MenuScanner {
         if (!FILLER_MATERIALS.contains(value)) {
             return false;
         }
-        Optional<String> label = firstString(section, "name", "display-name", "title", "text", "item.name", "icon.name", "display.name");
+        Optional<String> label = firstString(section, "name", "display-name", "title", "text", "item.name", "icon.name", "display.name", "claimable.name", "unclaimable.name", "no-permission.name");
         return label.isEmpty() || language.stripColor(label.get()).isBlank();
     }
 
-    private List<String> readCommands(ConfigurationSection section) {
-        List<String> commands = new ArrayList<>();
-        readCommandValue(section, commands,
-                "command",
-                "commands",
-                "player-command",
-                "player-commands",
-                "left-click-command",
-                "left-click-commands",
-                "right-click-command",
-                "right-click-commands",
-                "click-command",
-                "click-commands",
-                "actions",
-                "left-click-actions",
-                "right-click-actions",
-                "on-click",
-                "reward-commands");
+    private List<String> readCommands(Integration integration, ConfigurationSection section) {
+        List<String> commands = new ArrayList<>(ArtillexActionParser.commandsFor(integration, section, null));
         if (commands.size() > 4) {
             return List.copyOf(commands.subList(0, 4));
         }
@@ -264,6 +311,54 @@ public final class MenuScanner {
             }
         }
         return Optional.empty();
+    }
+
+    private List<String> description(ConfigurationSection section) {
+        Object lore = section.get("lore");
+        if (lore == null) {
+            lore = section.get("item.lore");
+        }
+        if (lore == null) {
+            lore = section.get("claimable.lore");
+        }
+        if (!(lore instanceof List<?> list)) {
+            return List.of();
+        }
+        List<String> result = new ArrayList<>();
+        for (Object entry : list) {
+            if (entry == null) {
+                continue;
+            }
+            String line = language.stripColor(String.valueOf(entry)).trim();
+            if (!line.isBlank()) {
+                result.add(line);
+            }
+            if (result.size() >= 5) {
+                break;
+            }
+        }
+        return List.copyOf(result);
+    }
+
+    private String genericContent(Integration integration) {
+        return switch (integration.id()) {
+            case "axgraves" -> "Available grave actions from the AxGraves menu configuration.";
+            case "axtrade" -> "Trade controls and available menu actions from AxTrade.";
+            case "axvaults" -> "Vault menu controls from AxVaults. Real vault storage remains owned by AxVaults.";
+            case "axshulkers" -> "Shulker controls from AxShulkers.";
+            case "axafkzone" -> "AFK zone reward and navigation actions.";
+            case "axinventoryrestore" -> "Inventory restore menu actions. Restore execution remains owned by AxInventoryRestore.";
+            case "axplayerwarps" -> "Player warp controls, categories, search, and navigation actions.";
+            case "axsellwands" -> "Sellwand purchase and management actions.";
+            case "axrewards" -> "Claimable rewards and reward menu actions.";
+            case "axminions" -> "Minion menu actions and controls.";
+            case "axenvoys" -> "Envoy reward and navigation actions.";
+            case "axsmithing" -> "Smithing menu actions and upgrade controls.";
+            case "axmines" -> "Mine list and mine control actions.";
+            case "axkills" -> "Kill message and statistics menu actions.";
+            case "axcalendar" -> "Calendar days and reward claim actions.";
+            default -> "Available actions from the plugin menu configuration.";
+        };
     }
 
     private String readablePath(String path) {

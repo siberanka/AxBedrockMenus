@@ -12,5 +12,6 @@ menu:
   plugin-disabled: "&cBu menu hazirda movcud deyil."
   rate-limited: "&cCox suretli emeliyyat edirsən. Zehmet olmasa yeniden yoxla."
   unsafe-command: "&cBu emeliyyat tehlukesizlik sebebi ile bloklandi."
+  info-only: "&eBu duyme melumat ucundur."
   open-default: "Menunu ac"
   back: "Geri"

@@ -21,12 +21,13 @@ public final class FormService {
     private final FloodgateBridge floodgate;
     private final SafeCommandService commands;
     private final MenuScanner scanner;
+    private final ProviderRegistry providers;
     private final RateLimiter openLimiter;
     private final RateLimiter clickLimiter;
     private final AtomicLong sequence = new AtomicLong();
     private final Map<UUID, FormSession> active = new ConcurrentHashMap<>();
 
-    public FormService(JavaPlugin plugin, PluginConfig config, LanguageService language, IntegrationRegistry integrations, FloodgateBridge floodgate, SafeCommandService commands, MenuScanner scanner) {
+    public FormService(JavaPlugin plugin, PluginConfig config, LanguageService language, IntegrationRegistry integrations, FloodgateBridge floodgate, SafeCommandService commands, MenuScanner scanner, ProviderRegistry providers) {
         this.plugin = plugin;
         this.config = config;
         this.language = language;
@@ -34,6 +35,7 @@ public final class FormService {
         this.floodgate = floodgate;
         this.commands = commands;
         this.scanner = scanner;
+        this.providers = providers;
         this.openLimiter = new RateLimiter(config.menuOpenLimit());
         this.clickLimiter = new RateLimiter(config.buttonClickLimit());
     }
@@ -50,7 +52,7 @@ public final class FormService {
             player.sendMessage(language.message("menu.rate-limited"));
             return;
         }
-        Optional<MenuData> data = scanner.loadMenu(integration, player);
+        Optional<MenuData> data = providers.providerFor(integration).load(integration, player, scanner);
         if (data.isEmpty()) {
             player.sendMessage(language.message("menu.no-buttons"));
             return;
@@ -66,7 +68,7 @@ public final class FormService {
         boolean sent = floodgate.sendSimpleForm(
                 player.getUniqueId(),
                 menu.title(),
-                "",
+                menu.content(),
                 labels,
                 clicked -> handleClick(player.getUniqueId(), id, menu, clicked, consumed),
                 () -> active.remove(player.getUniqueId(), new FormSession(id, integration.id()))
@@ -105,7 +107,12 @@ public final class FormService {
             player.sendMessage(language.message("menu.rate-limited"));
             return;
         }
-        commands.execute(player, menu.buttons().get(clicked));
+        MenuButton button = menu.buttons().get(clicked);
+        if (button.commands().isEmpty()) {
+            player.sendMessage(language.message("menu.info-only"));
+            return;
+        }
+        commands.execute(player, button);
     }
 
     private record FormSession(long id, String integrationId) {

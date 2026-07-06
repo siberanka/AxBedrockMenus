@@ -12,6 +12,7 @@ AxBedrockMenus is designed as a form bridge, not as an item container. It never 
 - Bounded YAML scanning with maximum file size, node count, depth, and button count.
 - Filler/decorative items are ignored.
 - Commands are normalized, placeholder-expanded from trusted server values only, length-limited, newline-blocked, and checked against dangerous roots/substrings.
+- Third-party `buy-actions`, `claim-commands`, and reward payout commands are not executed directly because doing so could bypass the owning plugin's economy, cooldown, permission, and state validation.
 - Console command execution is disabled by default.
 - Config/lang files are validated and backed up before automatic repair.
 

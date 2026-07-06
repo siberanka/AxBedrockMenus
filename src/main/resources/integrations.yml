@@ -4,7 +4,7 @@ integrations:
     plugin: AxGraves
     title: AxGraves
     aliases: [axgraves, graves, grave]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, data.json, menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.back%"
         command: "axgraves"
@@ -13,7 +13,7 @@ integrations:
     plugin: AxTrade
     title: AxTrade
     aliases: [axtrade, trade, trades]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [guis.yml, config.yml, currencies.yml, toggled.yml, menus.yml, menu.yml, gui.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "trade"
@@ -22,7 +22,7 @@ integrations:
     plugin: AxVaults
     title: AxVaults
     aliases: [axvaults, vaults, vault, pv, playervaults]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, vaults.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, vaults.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "vaults"
@@ -31,7 +31,7 @@ integrations:
     plugin: AxShulkers
     title: AxShulkers
     aliases: [axshulkers, shulker, shulkers]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "shulkers"
@@ -40,7 +40,7 @@ integrations:
     plugin: AxAFKZone
     title: AxAFKZone
     aliases: [axafkzone, afkzone, afkzones, afk]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, zones/*.yml, menus.yml, menu.yml, gui.yml, guis.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "afkzone"
@@ -49,7 +49,7 @@ integrations:
     plugin: AxInventoryRestore
     title: AxInventoryRestore
     aliases: [axinventoryrestore, inventoryrestore, invrestore, axir]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, backups.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, backups.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "inventoryrestore"
@@ -58,7 +58,7 @@ integrations:
     plugin: AxPlayerWarps
     title: AxPlayerWarps
     aliases: [axplayerwarps, playerwarps, pwarps, pw, warps]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, warps.yml, categories.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [guis/warps.yml, guis/my-warps.yml, guis/categories.yml, guis/favorites.yml, guis/recents.yml, guis/edit-warp.yml, guis/rate-warp.yml, guis/blacklist.yml, guis/whitelist.yml, config.yml, currencies.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "playerwarps"
@@ -67,7 +67,7 @@ integrations:
     plugin: AxSellwands
     title: AxSellwands
     aliases: [axsellwands, sellwands, sellwand]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, wands.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [sellwands/*.yml, prices.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, wands.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "sellwands"
@@ -76,7 +76,7 @@ integrations:
     plugin: AxRankMenu
     title: AxRankMenu
     aliases: [axrankmenu, rankmenu, ranks, rankup, rank]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, ranks.yml, rankmenu.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [ranks.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, rankmenu.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "rankmenu"
@@ -85,7 +85,7 @@ integrations:
     plugin: AxRewards
     title: AxRewards
     aliases: [axrewards, rewards, reward, daily, weekly]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [menus/default.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "rewards"
@@ -94,7 +94,7 @@ integrations:
     plugin: AxMinions
     title: AxMinions
     aliases: [axminions, minions, minion]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, minions.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, minions.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "minions"
@@ -103,7 +103,7 @@ integrations:
     plugin: AxEnvoys
     title: AxEnvoys
     aliases: [axenvoys, envoys, envoy]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, crates.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [envoys/*.yml, crates/*.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, crates.yml, rewards.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "envoys"
@@ -112,7 +112,7 @@ integrations:
     plugin: AxSmithing
     title: AxSmithing
     aliases: [axsmithing, smithing]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, smithing.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, smithing.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "smithing"
@@ -121,7 +121,7 @@ integrations:
     plugin: AxMines
     title: AxMines
     aliases: [axmines, mines, mine]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, mines.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [mines/*.yml, config.yml, menus.yml, menu.yml, gui.yml, guis.yml, mines.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "mines"
@@ -130,7 +130,7 @@ integrations:
     plugin: AxKills
     title: AxKills
     aliases: [axkills, kills, deathmessages, killmessages]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, messages.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [config.yml, menus.yml, menu.yml, gui.yml, guis.yml, messages.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "kills"
@@ -139,7 +139,7 @@ integrations:
     plugin: AxCalendar
     title: AxCalendar
     aliases: [axcalendar, calendar, adventcalendar, advent]
-    menu-files: [menus.yml, menu.yml, gui.yml, guis.yml, calendar.yml, rewards.yml, days.yml, menus/*.yml, gui/*.yml, guis/*.yml]
+    menu-files: [menu.yml, rewards.yml, config.yml, menus.yml, gui.yml, guis.yml, calendar.yml, days.yml, menus/*.yml, gui/*.yml, guis/*.yml]
     fallback-buttons:
       - text: "%menu.open-default%"
         command: "calendar"
