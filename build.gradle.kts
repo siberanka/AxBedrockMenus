@@ -3,7 +3,9 @@ plugins {
 }
 
 group = "com.siberanka"
-version = "1.0.2"
+version = "1.0.3"
+
+val pluginVersion = version.toString()
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))
@@ -24,9 +26,10 @@ tasks {
     }
 
     processResources {
+        inputs.property("version", pluginVersion)
         filteringCharset = "UTF-8"
         filesMatching("plugin.yml") {
-            expand("version" to project.version)
+            expand("version" to pluginVersion)
         }
     }
 

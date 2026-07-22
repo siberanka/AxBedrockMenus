@@ -27,7 +27,7 @@ public final class AxBedrockMenusPlugin extends JavaPlugin {
         if (command != null) {
             command.setExecutor(this);
         }
-        getLogger().info("Enabled AxBedrockMenus 1.0.0 with " + integrationRegistry.enabledCount() + " integrations.");
+        getLogger().info("Enabled AxBedrockMenus " + getPluginMeta().getVersion() + " with " + integrationRegistry.enabledCount() + " integrations.");
     }
 
     @Override

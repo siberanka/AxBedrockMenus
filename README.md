@@ -4,7 +4,7 @@ AxBedrockMenus adds Floodgate/Geyser Bedrock form support for free ArtillexStudi
 
 Package: `com.siberanka.axbedrockmenus`  
 Author: `siberanka`  
-Version: `1.0.2`
+Version: `1.0.3`
 
 ## Supported ArtillexStudios Plugins
 
@@ -21,6 +21,7 @@ AxGraves, AxTrade, AxVaults, AxShulkers, AxAFKZone, AxInventoryRestore, AxPlayer
 - Player-targeted actions such as AxTrade request/accept/deny open a second Bedrock player picker instead of requiring typed names.
 - Configured Artillex command aliases are read from the target plugin's `config.yml` where possible, so custom server aliases are respected.
 - Filler panes and decorative empty entries are ignored.
+- Form titles and primary button labels use bold black text; secondary button lines use dark blue text for strong contrast against Bedrock's gray button surfaces. Form content remains white against its dark content panel.
 - Button clicks execute sanitized player commands on the player's Folia entity scheduler only when the action can be delegated safely.
 - Reward `claim-commands` and rank `buy-actions` are never executed directly by AxBedrockMenus; those must stay behind the owning plugin's own economy, cooldown, permission, and state checks.
 - Stale form responses are invalidated on reload/disable and duplicate responses are consumed once.

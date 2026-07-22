@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 - 2026-07-23
+
+- Added centralized high-contrast Bedrock form styling across all 16 integrations and player selectors.
+- Form titles and primary button lines now render in bold black; secondary detail lines render in dark blue against Bedrock's gray button surfaces.
+- Removed inherited legacy, Bedrock, MiniMessage, obfuscated, and other external formatting codes before form serialization.
+- Added regression tests for contrast styling, formatting-code cleanup, control characters, and empty form fields.
+- Fixed the startup log to report the actual plugin version.
+
 ## 1.0.2 - 2026-07-06
 
 - Added plugin-specific quick action catalogs for all 16 bundled ArtillexStudios integrations.

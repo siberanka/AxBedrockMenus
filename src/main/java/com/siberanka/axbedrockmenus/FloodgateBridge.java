@@ -44,10 +44,10 @@ public final class FloodgateBridge {
         try {
             Class<?> simpleFormClass = Class.forName("org.geysermc.cumulus.form.SimpleForm");
             Object builder = simpleFormClass.getMethod("builder").invoke(null);
-            invokeBuilder(builder, "title", title);
-            invokeBuilder(builder, "content", content);
+            invokeBuilder(builder, "title", BedrockFormText.title(title));
+            invokeBuilder(builder, "content", BedrockFormText.content(content));
             for (String button : buttons) {
-                invokeBuilder(builder, "button", button);
+                invokeBuilder(builder, "button", BedrockFormText.button(button));
             }
             attachConsumer(builder, "validResultHandler", result -> {
                 Integer clicked = clickedButtonId(result);
